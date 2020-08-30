@@ -2,6 +2,34 @@
 Changelog for package mavros_msgs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.3.0 (2020-08-08)
+------------------
+* Add esc_status plugin.
+* Add gps_status plugin to publish GPS_RAW and GPS_RTK messages from FCU.
+  The timestamps for the gps_status topics take into account the mavlink time and uses the convienence function
+* adding support for publishing rtkbaseline msgs over ROS
+* Contributors: CSCE439, Dr.-Ing. Amilcar do Carmo Lucas, Ricardo Marques
+
+1.2.0 (2020-05-22)
+------------------
+* add yaw to CMD_DO_SET_HOME
+* Contributors: David Jablonski
+
+1.1.0 (2020-04-04)
+------------------
+
+1.0.0 (2020-01-01)
+------------------
+
+0.33.4 (2019-12-12)
+-------------------
+* Splitted the message fields.
+* Updated esimator status msg according to the new cog based definition of estimator status.
+* Added comments to msg.
+* Added new line char at end of message.
+* Added a publisher for estimator status message received from mavlink in sys_status.
+* Contributors: saifullah3396
+
 0.33.3 (2019-11-13)
 -------------------
 

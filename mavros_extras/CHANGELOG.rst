@@ -2,6 +2,61 @@
 Changelog for package mavros_extras
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.3.0 (2020-08-08)
+------------------
+* Take into account message count for message size
+* Add esc_status plugin.
+* fake_gps.cpp: Implement GPS time data
+* fake_gps.cpp: implement speed accuracy
+* fake_gps.cpp: Added horiz_accuracy and vert_accuracy parameters
+* fake_gps.cpp: Add mocap_withcovariance configuration parameter
+* fake_gps.cpp: add initial support for GPS_INPUT MAVLink message
+* fake_gps.cpp: uncrustify
+* Add gps_status plugin to publish GPS_RAW and GPS_RTK messages from FCU.
+  The timestamps for the gps_status topics take into account the mavlink time and uses the convienence function
+* uncrustify gps_rtk plugin
+* adding support for publishing rtkbaseline msgs over ROS
+* Contributors: CSCE439, Dr.-Ing. Amilcar do Carmo Lucas, Ricardo Marques
+
+1.2.0 (2020-05-22)
+------------------
+* Revert "extras: odom: Hardcode BODY_FRD enum_value to fix compilation"
+  This reverts commit 1a898dea2202ee1af56d698bd40d40994346c5cb.
+* extras: odom: Hardcode BODY_FRD enum_value to fix compilation
+  That PR broke build: https://github.com/mavlink/mavlink/pull/1112
+  TODO: find out what frame should be used
+* Contributors: Vladimir Ermakov
+
+1.1.0 (2020-04-04)
+------------------
+* Setting the same transparency for all elements
+* Visualization of the direction of the device
+* add support for bezier
+* Contributors: Alamoris, Martina Rivizzigno
+
+1.0.0 (2020-01-01)
+------------------
+* Change odometry subscription queue to 1 to avoid buffering.
+* Contributors: James Goppert
+
+0.33.4 (2019-12-12)
+-------------------
+* obstacle_distance: Fill both increment and increment_f fields
+* obstacle_distance: Fix wrong angle increment
+  The computation `req->angle_increment * RAD_TO_DEG` correctly computes
+  angle increment in degrees as a float, but the `increment` field of the
+  OBSTACLE_DISTANCE MAVLink message is a uint8, so the float value gets
+  truncated. So if your real increment is 10 degrees, you may a floating
+  point value of something like 9.999999, which results in the integer value
+  9 getting written to the increment field.
+  An improvement would be to round properly, with something like
+  `static_cast<uint8_t>(increment_deg_float)`,
+  but a better solution is to allow non-integer degree values for the
+  increment, which is supported by the `increment_f` field. According
+  to the MAVLink reference, increment_f is used instead of increment
+  whenever increment_f is nonzero.
+* Contributors: Morten Fyhn Amundsen
+
 0.33.3 (2019-11-13)
 -------------------
 * package: fix 6fa58e59 - main package depends on trajectory_msgs, not extras

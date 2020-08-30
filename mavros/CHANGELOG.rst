@@ -2,6 +2,101 @@
 Changelog for package mavros
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.3.0 (2020-08-08)
+------------------
+* fake_gps.cpp: implement speed accuracy
+* fake_gps.cpp: Add mocap_withcovariance configuration parameter
+* fake_gps.cpp: add initial support for GPS_INPUT MAVLink message
+* apm.launch: Avoid warning:
+  Warning: You are using <arg> inside an <include> tag with the default=XY attribute - which is superfluous.
+  Use value=XY instead for less confusion.
+  Attribute name: respawn_mavros
+* Added support for MavProxy parameter file format
+* Ignore read-only parameters and statistics parameters in push operations
+* fix indentation
+* transform based on coordinate_frame
+* wind plugin: fix ArduPilot wind transformation
+* Contributors: Ben Wolsieffer, Dr.-Ing. Amilcar do Carmo Lucas, Yuan, Yuan Xu
+
+1.2.0 (2020-05-22)
+------------------
+* has_capability only works for enums
+* Uncrustify
+* Reworked Waypoint plugin to use capabilities_cb
+  Additionally added helper functions has_capability and has_capabilities
+  so that people can use either ints or enums to check if the UAS has a
+  capability. This might make accepting capabilities as a parameter moot
+  though.
+* Added alias for capabilities enum to UAS
+* Added alias for capabilities enum to UAS
+* Added a capabilities change cb queue
+  Plugins can now write functions that they add to the
+  capabilities_cb_vec. These functions will be called only when there is a
+  change to the capabilities themselves not whenever the known status of
+  the fcu_capabilities change.
+  These functions should have a parameter of type
+  mavlink::common::MAV_PROTOCOL_CAPABILITY which is essentially just a
+  uint64_t however being more opinionated is helpful when looking for what
+  the canonical enum names are in the mavlink project header files.
+* Uncrustify
+* Fixed Removed Uncrustify Option
+  I'm not sure why this didn't break when I ran uncrustify previously but
+  it seems that the align_number_left option was removed a while ago with
+  this merge request but I may be mistaken
+  https://github.com/uncrustify/uncrustify/pull/1393
+  I replaced it which align_number_right=true since it seems to be the
+  inverse of align_number_left=true.
+* Removed deprecated MAV_FRAME values
+* Removed use of variant in favor of templates
+  Since ROS messages are now the storage type in the node, providing to
+  and from conversion functions is sufficient and can be better expressed
+  with function templates.
+* Encode factor returns double
+* Changed encoding factor cog code
+* Uncrustify changes
+* Added new parameter to config.yamls
+* Updated waypoint plugin to support MISSION_ITEM_INT
+  These changes add a new parameter use_mission_item_int, which allows
+  users to prefer the old behavior. These changes also verify that the
+  flight controller supports _INT messages since APM only sends
+  REQUEST_ITEM messages even though it accepts _INT items back.
+  This commit is functional and tested with the APM stack only.
+  PX4 sitl jmavsim threw:
+  WP: upload failed: Command is not supported.
+  FCU: IGN MISSION_ITEM: Busy
+* Removed x_lat, y_long, z_alt from WP
+  These values seemed to be used due to the fact that double had
+  a greater resolution than float and doubles are used in the
+  ros msg. However they were only ever used for printing. Since
+  the int version of these messages has a greater resolution I
+  figure it is more useful to print the true value in the mavlink
+  message rather than the ros message value
+* Replaced MISSION_ITEM
+* add yaw to CMD_DO_SET_HOME
+* fix local angular velocity
+* Contributors: Braedon, David Jablonski, Martina Rivizzigno
+
+1.1.0 (2020-04-04)
+------------------
+* fixed styling
+* fixed indent from using spaces
+* updates apmrover2 modes and allows for arduboat mode changes
+* mavsafety kill feature for emergency stop
+* Include trajectory_msgs in CMakeLists.txt
+  This allows build to complete successfully.
+* Contributors: Anthony Goeckner, Matt Koos, aykutkabaoglu
+
+1.0.0 (2020-01-01)
+------------------
+
+0.33.4 (2019-12-12)
+-------------------
+* Replaced estimator status hardcoded definition with cog.
+* Refactor.
+* Replaced bool with git add -u as already done.
+* Added a publisher for estimator status message received from mavlink in sys_status.
+* Contributors: saifullah3396
+
 0.33.3 (2019-11-13)
 -------------------
 * package: fix 6fa58e59 - main package depends on trajectory_msgs, not extras

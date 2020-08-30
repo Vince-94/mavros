@@ -2,6 +2,25 @@
 Changelog for package libmavconn
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.3.0 (2020-08-08)
+------------------
+* allow mavros to compile in CI environment
+* Contributors: Marcelino
+
+1.2.0 (2020-05-22)
+------------------
+
+1.1.0 (2020-04-04)
+------------------
+
+1.0.0 (2020-01-01)
+------------------
+
+0.33.4 (2019-12-12)
+-------------------
+* add macro for get_io_service() to work with boost>1.70
+* Contributors: acxz
+
 0.33.3 (2019-11-13)
 -------------------
 
